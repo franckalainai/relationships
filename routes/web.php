@@ -1,6 +1,7 @@
 <?php
 use App\Address;
 use App\User;
+use App\Post;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,6 +57,36 @@ Route::get('/country', function(){
     $addresses = Address::all();
 
     return view('addresses.index', compact('addresses', $addresses));
+});
+
+Route::get('/posts', function(){
+    /*Post::create([
+        'user_id' => 1,
+        'title' => 'post title 1'
+    ]);
+
+    Post::create([
+        'user_id' => 2,
+        'title' => 'post title 2'
+    ]);*/
+
+    $posts = Post::all();
+    return view('posts.index', compact('posts', $posts));
+});
+
+Route::get('/users-posts', function(){
+    /*Post::create([
+        'user_id' => 1,
+        'title' => 'post title 1'
+    ]);
+
+    Post::create([
+        'user_id' => 2,
+        'title' => 'post title 2'
+    ]);*/
+
+    $users = User::has('posts')->get();
+    return view('posts.users', compact('users', $users));
 });
 
 Auth::routes();
